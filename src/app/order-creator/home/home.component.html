@@ -1,0 +1,11 @@
+<h2>Order creator home</h2>
+<p>{{title}}</p>
+
+<button (click)="addProduct()">Add product</button>
+<button (click)="addVariation()">Add variation</button>
+
+<div>
+  {{products$ | async | json}}
+</div>
+
+<a routerLink="/">Back to home...</a>
