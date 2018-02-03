@@ -1,5 +1,5 @@
-import {Action, combineReducers, createFeatureSelector, createSelector, StoreModule} from '@ngrx/store';
-import {NgModule} from '@angular/core';
+import {Action, ActionReducerMap, combineReducers, createFeatureSelector, createSelector, StoreModule} from '@ngrx/store';
+import {InjectionToken, NgModule} from '@angular/core';
 
 export interface State {
   products: string[];
@@ -61,6 +61,16 @@ export const reducer = combineReducers({
   variations: variationReducer
   }
 );
+
+export function getReducers() {
+  return reducer;
+}
+
+export const reducerToken = new InjectionToken<ActionReducerMap<State>>('[OrderCreator] Reducers');
+
+export const reducerProvider = [
+  { provide: reducerToken, useFactory: getReducers }
+];
 
 export const slice = createFeatureSelector<State>('orderCreator');
 export const products = createSelector(slice, (s: State) => s.products);

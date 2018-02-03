@@ -1,4 +1,4 @@
-import {reducer} from './reducers';
+import {reducerProvider, reducerToken} from './reducers';
 import {NgModule} from '@angular/core';
 import {StoreModule} from '@ngrx/store';
 import {HomeComponent} from './home/home.component';
@@ -11,11 +11,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
     RouterModule.forChild(routes)
   ],
   exports: [
-    CommonModule,
     RouterModule
   ]
 })
@@ -25,14 +23,18 @@ export class OrderCreatorRoutingModule {
 
 @NgModule({
   imports: [
+    CommonModule,
+
     OrderCreatorRoutingModule,
-    StoreModule.forFeature('orderCreator', reducer),
+    StoreModule.forFeature('orderCreator', reducerToken),
   ],
+  providers: [reducerProvider],
   declarations: [
     HomeComponent
   ],
   exports: [
-    HomeComponent
+    HomeComponent,
+    CommonModule,
   ]
 })
 export class OrderCreatorModule {
